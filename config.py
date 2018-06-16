@@ -1,0 +1,6 @@
+username = "username"
+password = "password"
+client_id = "clientid"
+client_secret = "clientsecret"
+user_agent = "Kahoot Crashing Bot v0.0.1"
+target_subreddit = "subreddit"
