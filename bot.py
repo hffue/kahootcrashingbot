@@ -2,7 +2,7 @@ import praw
 import config
 
 def bot_login():
-	print "Logging in..."
+	print ('Logging in')
 	reddit = praw.Reddit(username = config.username,
 			password = config.password,
 			client_id = config.client_id,
@@ -13,8 +13,9 @@ def bot_login():
 	
 
 def run_bot(reddit):
-	subreddit = reddit.subreddit(config.target_subreddit)
-	for submission in subreddit.stream.submissions()
-			print "I have no idea what to do here so far..."
+	subreddit = config.target_subreddit
+	for submission in subreddit.stream.submissions():
+			print ('Outputs on API call')
 
-
+reddit = bot_login()
+run_bot(reddit)
