@@ -1,4 +1,6 @@
 import praw
+import subprocess
+import os
 import config
 
 def init():
@@ -26,20 +28,23 @@ def main():
 			print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
 		
 		if proctitle and not submissioncheck(submission):
-			print('[',submission.title,'] has already been processed\n\n','--------------------------------------------------------------------------------\n')
+			print('Post [',submission.title,'] has already been processed\n\n','--------------------------------------------------------------------------------\n')
 		
 		if not proctitle and submissioncheck(submission):
 			savesubmission(submission)
-			print('[',submission.title,'] was too short, ignoring post\n\n','--------------------------------------------------------------------------------\n')
+			print('Post [',submission.title,'] was too short, ignoring post\n\n','--------------------------------------------------------------------------------\n')
 		
 		if not proctitle and not submissioncheck(submission):
-			print('[',submission.title,'] was both too short and already processed\n\n','--------------------------------------------------------------------------------\n')
+			print('Post [',submission.title,'] was both too short and already processed\n\n','--------------------------------------------------------------------------------\n')
 
 def runbot(submission, proctitle):
 	reply = ('Attempting to flood game [' + proctitle[0] + '] with [' + proctitle[2] + '] bots named [' + proctitle[1] + ']')
 	submission.reply(reply)
 	print('Replied to:',submission.title,'\n')
-	
+	command = (r'go run [botdirectory] ' + proctitle[0] + ' ' + proctitle[1] + ' ' + proctitle[2])
+	bot = subprocess.Popen(command)
+	print(bot)
+
 def submissioncheck(submission):
 	DB = open("processed.txt", "r")
 	IDs = DB.read()
