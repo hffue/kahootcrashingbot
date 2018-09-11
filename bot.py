@@ -38,7 +38,7 @@ def main():
 			print('Post [',submission.title,'] was both too short and already processed\n\n','--------------------------------------------------------------------------------\n')
 
 def runbot(submission, proctitle):
-	reply = ('Attempting to flood game [' + proctitle[0] + '] with [' + proctitle[2] + '] bots named [' + proctitle[1] + ']')
+	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *' + proctitle[2] + '* bots named *' + proctitle[1] + '* \n \n ___ \n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)')
 	submission.reply(reply)
 	print('Replied to:',submission.title,'\n')
 	command = (r'go run [botdirectory] ' + proctitle[0] + ' ' + proctitle[1] + ' ' + proctitle[2])
