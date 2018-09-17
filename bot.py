@@ -3,6 +3,7 @@ import subprocess
 import os
 import config
 
+
 def init():
 	try:
 		DB = open("processed.txt", "r")
@@ -10,6 +11,7 @@ def init():
 	except:
 		DB = open("processed.txt", "w+")
 		DB.close()
+
 
 def main():
 	print ('Logging in\n')
@@ -24,9 +26,8 @@ def main():
 		proctitle = processtitle(submission)
 		if proctitle and submissioncheck(submission):
 			savesubmission(submission)
-			runbot(submission, proctitle)
-			print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
-		
+			checkamt(submission, proctitle)	
+
 		if proctitle and not submissioncheck(submission):
 			print('Post [',submission.title,'] has already been processed\n\n','--------------------------------------------------------------------------------\n')
 		
@@ -37,13 +38,41 @@ def main():
 		if not proctitle and not submissioncheck(submission):
 			print('Post [',submission.title,'] was both too short and already processed\n\n','--------------------------------------------------------------------------------\n')
 
-def runbot(submission, proctitle):
-	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *' + proctitle[2] + '* bots named *' + proctitle[1] + '* \n \n ___ \n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)')
+def checkamt(submission, proctitle):
+	amount = int(proctitle[1],10)
+	if amount <= 1000:
+		runbot1(submission, proctitle)
+	if amount > 1000:
+		runbot2(submission, proctitle)
+
+def runbot1(submission, proctitle):
+	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *' + proctitle[1] + '* bots named *' + proctitle[2] + '* \n \n ___ \n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.6')
 	submission.reply(reply)
 	print('Replied to:',submission.title,'\n')
-	command = (r'go run [botdirectory] ' + proctitle[0] + ' ' + proctitle[1] + ' ' + proctitle[2])
+	command = (r'go run main.go ' + proctitle[0] + ' ' + proctitle[2] + ' ' + proctitle[1])
 	bot = subprocess.Popen(command)
 	print(bot)
+	print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
+	return True
+
+def runbot2(submission, proctitle):
+	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *1000* bots named *' + proctitle[2] + '* \n \n ^(Bot limit is currently set to 1000) \n \n ___\n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.6')
+	submission.reply(reply)
+	print('Replied to:',submission.title,'\n')
+	limit = str(1000)
+	command = (r'go run main.go ' + proctitle[0] + ' ' + proctitle[2] + ' ' + limit)
+	bot = subprocess.Popen(command)
+	print(bot)
+	print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
+	return True
+
+def converttitle(proctitle):
+	try:
+		proctitle[0] = int(proctitle[0],10)
+		proctitle[1] = int(proctitle[1],10)
+		return proctitle
+	except:
+		return proctitle
 
 def submissioncheck(submission):
 	DB = open("processed.txt", "r")
@@ -60,6 +89,18 @@ def savesubmission(submission):
 	DB.write('[' + submission.id + ' , "' + submission.title + '"] - ')
 	print('Saved submission [', submission.title, ']\n')
 	DB.close()
+
+def savesubmission(submission):
+	try:
+		DB = open("processed.txt", "a")
+		DB.write('[' + submission.id + ' , "' + submission.title + '"] - ')
+		print('Saved submission [', submission.title, ']\n')
+		DB.close()
+	except:
+		DB = open("processed.txt", "a")
+		DB.write('[' + submission.id + ' , ERROR: Could not parse title] - ')
+		print('Saved submission [', submission.id, '] with title parse error\n')
+		DB.close()
 
 def processtitle(submission):
 	processedtitle = submission.title.split(" | ", 4)
