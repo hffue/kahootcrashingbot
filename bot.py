@@ -46,21 +46,21 @@ def checkamt(submission, proctitle):
 		runbot2(submission, proctitle)
 
 def runbot1(submission, proctitle):
-	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *' + proctitle[1] + '* bots named *' + proctitle[2] + '* \n \n ___ \n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.6')
+	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *' + proctitle[1] + '* bots named *' + proctitle[2] + '* \n \n ___ \n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.7')
 	submission.reply(reply)
 	print('Replied to:',submission.title,'\n')
-	command = (r'go run main.go ' + proctitle[0] + ' ' + proctitle[2] + ' ' + proctitle[1])
+	command = (r'go run main.go ' + proctitle[0] + ' "' + proctitle[2] + '" ' + proctitle[1])
 	bot = subprocess.Popen(command)
 	print(bot)
 	print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
 	return True
 
 def runbot2(submission, proctitle):
-	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *1000* bots named *' + proctitle[2] + '* \n \n ^(Bot limit is currently set to 1000) \n \n ___\n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.6')
+	reply = ('###Attempting to flood game *' + proctitle[0] + '* with *1000* bots named *' + proctitle[2] + '* \n \n ^(Bot limit is currently set to 1000) \n \n ___\n \n ^(I am a bot, this action was performed automatically.) \n \n^(If you have any questions please contact my developer, u/PMMEURTHROWAWAYS) \n \n^(All of my code is visible here: https://github.com/cymug/kahootcrashingbot)\n \n^v. ^0.0.7')
 	submission.reply(reply)
 	print('Replied to:',submission.title,'\n')
 	limit = str(1000)
-	command = (r'go run main.go ' + proctitle[0] + ' ' + proctitle[2] + ' ' + limit)
+	command = (r'go run main.go ' + proctitle[0] + ' "' + proctitle[2] + '" ' + limit)
 	bot = subprocess.Popen(command)
 	print(bot)
 	print('Successfully ran bot on game [', submission.title, ']\n\n','--------------------------------------------------------------------------------\n')
