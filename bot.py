@@ -14,8 +14,8 @@ def init():
 		DB.close()
 
 def main():
-	forward = subprocess.Popen("python3 forward.py")
-	print(forward)
+	forward = subprocess.Popen("python forward.py")
+	print (forward)
 	print ('Loading main bot\n')
 	reddit = praw.Reddit(username = config.username,
 			password = config.password,
