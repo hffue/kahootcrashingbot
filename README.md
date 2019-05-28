@@ -1,6 +1,6 @@
 # kahootcrashingbot
 
-A reddit bot that automatically crashes kahoot games. Looks for post titles formatted with **######## (Game PIN) | Name | #### (Amount)**
+A reddit bot that automatically crashes kahoot games. Looks for post titles formatted with **XXXXXX (Game PIN) | XXXX (Amount) | Name**
 
 Designed to process submissions as soon as they are posted
 
